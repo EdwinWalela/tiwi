@@ -1,6 +1,6 @@
-<center>
+<div style="text-align:center">
 <img src="docs/tiwi.png" width=200/>
-</center>
+</div>
 
 # Tiwi - Static Site Generator
 
@@ -10,7 +10,8 @@ Convert Markdown to HTML in seconds
 
 Clone repository
 
-```
+```bash
+git clone https://github.com/EdwinWalela/tiwi
 ```
 
 Compile tiwi
@@ -21,7 +22,7 @@ make
 
 Run tiwi
 
-```
+```bash
 ./tiwi
 
 
