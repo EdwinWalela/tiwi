@@ -27,4 +27,5 @@ func createPage() {
 
 func CreateSite() {
 	createParentFolder()
+	createPages()
 }
