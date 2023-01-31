@@ -60,5 +60,7 @@ func CreateSite(args []string) {
 	} else {
 		fmt.Println("")
 	}
+	fmt.Printf("\nTo build project run: tiwi build\n\n")
 	fmt.Printf("\nStart building!\n\n")
+
 }
