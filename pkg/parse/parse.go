@@ -5,7 +5,10 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+
 	"strings"
+
+	"github.com/fatih/color"
 )
 
 var mdTohtml = map[string]string{
@@ -89,6 +92,9 @@ func getPages() ([]string, error) {
 }
 
 func Build() {
+
+	blue := color.New(color.FgCyan).PrintfFunc()
+	green := color.New(color.FgGreen).PrintfFunc()
 	pages, err := getPages()
 	if err != nil {
 		log.Fatal(err.Error())
@@ -97,14 +103,16 @@ func Build() {
 		log.Fatalf("No Markdown files were found in the directory\n")
 	}
 
-	fmt.Printf("Found [%d] page(s):\n\n", len(pages))
+	fmt.Printf("\nFound")
+	green(" [%d] ", len(pages))
+	fmt.Printf("page(s):\n\n")
 
 	if err := createOutputFolder(); err != nil {
 		log.Fatal(err)
 	}
 
 	for _, page := range pages {
-		fmt.Printf("- %s\n", page)
+		green("- %s\n", page)
 	}
 
 	fmt.Println("\nGenerating HTML...")
@@ -142,5 +150,7 @@ func Build() {
 		writeHTML(html, page)
 	}
 
-	fmt.Println("\nProcess complete. HTML files generated.")
+	blue("\nProcess complete.")
+	fmt.Printf(" HTML files generated at ")
+	green("./static\n\n")
 }

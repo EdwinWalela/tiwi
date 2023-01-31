@@ -47,4 +47,55 @@ Use "tiwi [command] --help" for more information about a command.
 
 ## Usage
 
+```bash
+$ ./tiwi create
+```
+
 The `create` command takes in an argument of the project name.
+
+```bash
+
+Please specify the project name:
+
+tiwi create <my-project>
+
+For example:
+
+tiwi create my-tiwi-site
+
+```
+
+### Create a project
+
+```bash
+./tiwi create my-site
+```
+
+To be able to use the `tiwi` command inside the project, copy the binary into the project
+
+```bash
+cp tiwi my-site
+```
+
+The `create` command scaffolds the project with an `index.md` and `not-found.md`
+
+### Generate HTML
+
+```bash
+./tiwi build
+```
+
+This commands generates a folder called `static` containing the HTML files
+
+```bash
+$ ./tiwi build
+
+Found [2] page(s):
+
+- index.md
+- not-found.md
+
+Generating HTML...
+
+Process complete. HTML files generated.
+```
