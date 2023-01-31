@@ -9,7 +9,37 @@ import (
 	"github.com/fatih/color"
 )
 
-var DefaultPages = []string{"index", "not-found"}
+var DefaultPages = map[string]string{
+	"index": `
+# Tiwi
+
+Generate HTML from markdown
+
+## Getting Started
+
+### Supported markdown syntax
+
+- #- h1
+- ##- h2 
+- ###- h3
+- ![alt](src)- img
+- --- - div
+- []() - link
+
+
+### Generate HTML
+
+./tiwi build
+
+
+[View on Github](https://github.com/EdwinWalela/tiwi)
+	`,
+	"not-found": `
+# Page not found
+
+The page requested was not found.
+	`,
+}
 
 func createParentFolder(title string) error {
 	if _, err := os.Stat(title); os.IsNotExist(err) {
@@ -21,16 +51,16 @@ func createParentFolder(title string) error {
 }
 
 func createPages(parentDir string) error {
-	for _, page := range DefaultPages {
-		if err := createPage(page, parentDir); err != nil {
-			return fmt.Errorf("failed to create page %s: %v", page, err.Error())
+	for title := range DefaultPages {
+		if err := createPage(title, parentDir); err != nil {
+			return fmt.Errorf("failed to create page %s: %v", title, err.Error())
 		}
 	}
 	return nil
 }
 
 func createPage(page string, parentDir string) error {
-	about := []byte(fmt.Sprintf("# %s\n", page))
+	about := []byte(fmt.Sprintf("%s", DefaultPages[page]))
 
 	if err := os.WriteFile(fmt.Sprintf("%s/%s.md", parentDir, page), about, 0644); err != nil {
 		return err
