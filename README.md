@@ -96,3 +96,6 @@ Generating HTML...
 
 Process complete. HTML files generated at /static.
 ```
+<div align="center">
+<img src="./docs/index-html.png" width=400/>
+</div>
