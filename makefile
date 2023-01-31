@@ -4,7 +4,7 @@ clean:
 	rm -rf tiwi && rm -rf site
 
 e2e:
-	go test -v ./test
+	go test -v ./pkg/...
 
 build:clean
 	go build -o tiwi cmd/tiwi/main.go 

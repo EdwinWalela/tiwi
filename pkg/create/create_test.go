@@ -1,7 +1,14 @@
 package create
 
-import "testing"
+import (
+	"testing"
 
-func TestCreateParentFolder(t *testing.T) {
-	CreateSite()
+	"github.com/stretchr/testify/assert"
+)
+
+func TestCreateProject(t *testing.T) {
+	args := []string{"test-site"}
+	CreateSite(args)
+	assert.DirExists(t, args[0])
+
 }

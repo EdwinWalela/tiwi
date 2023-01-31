@@ -4,6 +4,7 @@
 *.so
 *.exe
 
+test-site
 /out
 /.idea
 /.vscode
