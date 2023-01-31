@@ -1,5 +1,5 @@
 <div style="text-align:center">
-<img src="docs/tiwiMascot.png" width=300/>
+<img src="docs/tiwiMascot.png"/>
 </div>
 
 
