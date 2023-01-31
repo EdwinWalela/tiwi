@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strings"
+
+	"github.com/fatih/color"
 )
 
 var DefaultPages = []string{"index", "not-found"}
@@ -37,8 +40,21 @@ func createPage(page string, parentDir string) error {
 
 func CreateSite(args []string) {
 	projectTitle := ""
-	if len(args) != 0 {
+	blue := color.New(color.FgCyan).PrintfFunc()
+	green := color.New(color.FgGreen).PrintfFunc()
+
+	if len(args) > 0 {
+		projectTitle = strings.Join(args, "-")
+	} else if len(args) != 0 {
 		projectTitle = args[0]
+	} else {
+		fmt.Printf("\nPlease specify the project name:\n\n")
+		blue("tiwi create ")
+		green("<my-project>\n\n")
+		fmt.Printf("For example:\n\n")
+		blue("tiwi create ")
+		green("my-tiwi-site\n\n")
+		os.Exit(1)
 	}
 	currentDir, err := os.Getwd()
 
@@ -46,7 +62,8 @@ func CreateSite(args []string) {
 		log.Fatalf("Failed to get current directory: %v", err.Error())
 	}
 
-	fmt.Printf("\nScaffolding project in : %s/%s...\n", currentDir, projectTitle)
+	fmt.Printf("\nScaffolding project in :")
+	green("%s/%s...\n", currentDir, projectTitle)
 	if err := createParentFolder(projectTitle); err != nil {
 		log.Fatal(err.Error())
 	}
@@ -56,11 +73,14 @@ func CreateSite(args []string) {
 	fmt.Printf("\nProject created")
 	if projectTitle != "." {
 
-		fmt.Printf("\n\ncd %s\n", projectTitle)
+		fmt.Printf("\n\ncd ")
+		blue("%s\n", projectTitle)
 	} else {
 		fmt.Println("")
 	}
-	fmt.Printf("\nTo build project run: tiwi build\n\n")
+	fmt.Printf("\nTo build project run: ")
+	blue("tiwi build\n\n")
+
 	fmt.Printf("\nStart building!\n\n")
 
 }

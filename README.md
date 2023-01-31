@@ -34,6 +34,7 @@ Usage:
   tiwi [command]
 
 Available Commands:
+  build       Generates HTML files
   create      Initializes the tiwi project
   help        Help about any command
 
@@ -44,3 +45,6 @@ Use "tiwi [command] --help" for more information about a command.
 
 ```
 
+## Usage
+
+The `create` command takes in an argument of the project name.
