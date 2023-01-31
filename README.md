@@ -2,6 +2,9 @@
 <img src="docs/tiwiMascot.png"/>
 <h2>Build Websites With Markdown
 </h2>
+
+<img src="./docs/create.png"/>
+<img src="./docs/build.png"/>
 </div>
 
 
