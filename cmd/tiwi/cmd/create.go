@@ -10,7 +10,7 @@ var createCmd = &cobra.Command{
 	Short: "Initializes the tiwi project",
 	Long:  "Creates a directory containing markdown files for your tiwi project",
 	Run: func(cmd *cobra.Command, args []string) {
-		create.CreateSite()
+		create.CreateSite(args)
 	},
 }
 
