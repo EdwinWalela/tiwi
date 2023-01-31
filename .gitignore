@@ -3,7 +3,7 @@
 *.a
 *.so
 *.exe
-
+*.html
 test-site
 /out
 /.idea

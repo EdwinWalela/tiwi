@@ -22,6 +22,18 @@ var htmlOpenToClose = map[string]string{
 	"<h3>": "</h3>",
 }
 
+var htmlHeader string = `
+	<head>
+		<title>%s</title>
+	</head>
+`
+
+var htmlBody string = `
+ <body>
+ %s
+ </body>
+`
+
 func parseAnchorTag(src string) string {
 	title, link, _ := strings.Cut(src, "]")
 
@@ -46,7 +58,7 @@ func parseImgTag(src string, v string) string {
 }
 
 func writeHTML(src string, target string) {
-	data := []byte(src)
+	data := []byte(fmt.Sprintf(htmlHeader, "title") + fmt.Sprintf(htmlBody, src))
 	if err := os.WriteFile(fmt.Sprintf("%s.html", target), data, 0644); err != nil {
 		log.Fatal(err.Error())
 	}
