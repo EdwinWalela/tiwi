@@ -9,7 +9,6 @@ import (
 var DefaultPages = []string{"index", "not-found"}
 
 func createParentFolder(title string) error {
-
 	if _, err := os.Stat(title); os.IsNotExist(err) {
 		if err := os.Mkdir(title, os.ModePerm); err != nil {
 			return fmt.Errorf("failed to create project directory: %v", err.Error())

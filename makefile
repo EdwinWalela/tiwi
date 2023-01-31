@@ -6,5 +6,5 @@ clean:
 e2e:
 	go test -v ./pkg/...
 
-build:clean
+build:
 	go build -o tiwi cmd/tiwi/main.go 
