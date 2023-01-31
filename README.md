@@ -2,9 +2,10 @@
 <img src="docs/tiwi.png"/>
 </div>
 
-# Tiwi - Static Site Generator
 
-Convert Markdown to HTML in seconds
+# Build Websites With Markdown
+
+Tiwi converts markdown to static HTML pages
 
 ## Installation
 
