@@ -5,9 +5,6 @@
 </div>
 
 
-
-Tiwi converts Markdown to static HTML pages.
-
 ## Installation
 
 Clone repository
