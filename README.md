@@ -97,5 +97,5 @@ Found [2] page(s):
 
 Generating HTML...
 
-Process complete. HTML files generated.
+Process complete. HTML files generated at /static.
 ```
