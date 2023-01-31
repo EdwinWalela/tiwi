@@ -1,9 +1,12 @@
 package create
 
 import (
+	"fmt"
 	"log"
 	"os"
 )
+
+var DefaultPages = []string{"index", "not-found"}
 
 func createParentFolder() {
 	if _, err := os.Stat("site"); os.IsNotExist(err) {
@@ -14,15 +17,20 @@ func createParentFolder() {
 }
 
 func createPages() {
-	createPage()
+	for _, page := range DefaultPages {
+		if err := createPage(page); err != nil {
+			log.Fatalf("Failed to create page %s: %v", page, err.Error())
+		}
+	}
 }
 
-func createPage() {
-	about := []byte("# About\n")
+func createPage(page string) error {
+	about := []byte(fmt.Sprintf("# %s\n", page))
 
-	if err := os.WriteFile("site/about.md", about, 0644); err != nil {
-		log.Fatal(err)
+	if err := os.WriteFile(fmt.Sprintf("site/%s.md", page), about, 0644); err != nil {
+		return err
 	}
+	return nil
 }
 
 func CreateSite() {

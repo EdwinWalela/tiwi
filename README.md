@@ -6,7 +6,7 @@
 
 
 
-Tiwi converts Markdown to static HTML pages
+Tiwi converts Markdown to static HTML pages.
 
 ## Installation
 
