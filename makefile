@@ -1,7 +1,7 @@
 all: clean e2e build
 
 clean:
-	rm -rf tiwi
+	rm -rf tiwi && rm -rf site
 
 e2e:
 	go test -v ./test
