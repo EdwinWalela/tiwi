@@ -45,12 +45,20 @@ func parseImgTag(src string, v string) string {
 	return fmt.Sprintf(mdTohtml[src[0:1]], imgAlt, imgSrc)
 }
 
+func writeHTML(src string, target string) {
+	data := []byte(src)
+	if err := os.WriteFile(fmt.Sprintf("%s.html", target), data, 0644); err != nil {
+		log.Fatal(err.Error())
+	}
+}
+
 func Build() {
 	dat, err := os.ReadFile("site/index.md")
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	src := string(dat)
+	html := ""
 
 	for _, v := range strings.Split(src, "\n") {
 		if v != "" {
@@ -59,16 +67,17 @@ func Build() {
 
 			if _, exists := mdTohtml[el]; !exists {
 				if el[0:1] == "[" {
-					fmt.Println(parseAnchorTag(el))
+					html += parseAnchorTag(el) + "\n"
 				} else if el[0:1] == "!" {
-					fmt.Println(parseImgTag(el, v))
+					html += parseImgTag(el, v) + "\n"
 				} else {
-					fmt.Println("<p>", v, "</p>")
+					html += "<p>" + v + "</p>" + "\n"
 				}
 			} else {
-				fmt.Println(mdTohtml[el], val, htmlOpenToClose[mdTohtml[el]])
+				html += mdTohtml[el] + val + htmlOpenToClose[mdTohtml[el]] + "\n"
 			}
 		}
 
 	}
+	writeHTML(html, "index")
 }
