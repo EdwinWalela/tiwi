@@ -1,5 +1,7 @@
 package main
 
-func main() {
+import "github.com/edwinwalela/tiwi/cmd/tiwi/cmd"
 
+func main() {
+	cmd.Execute()
 }
