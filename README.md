@@ -1,11 +1,12 @@
-<div style="text-align:center">
+<div align="center">
 <img src="docs/tiwiMascot.png"/>
+<h2>Build Websites With Markdown
+</h2>
 </div>
 
 
-# Build Websites With Markdown
 
-Tiwi converts markdown to static HTML pages
+Tiwi converts Markdown to static HTML pages
 
 ## Installation
 
