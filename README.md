@@ -1,5 +1,5 @@
 <div style="text-align:center">
-<img src="docs/tiwi.png" width=200/>
+<img src="docs/tiwi.png"/>
 </div>
 
 # Tiwi - Static Site Generator
