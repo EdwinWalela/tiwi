@@ -7,7 +7,7 @@ import (
 
 var parseCmd = &cobra.Command{
 	Use:   "build",
-	Short: "Builds HTML site",
+	Short: "Generates HTML files",
 	Long:  "Parses markdown and produces HTML code",
 	Run: func(cmd *cobra.Command, args []string) {
 		parse.Build()
