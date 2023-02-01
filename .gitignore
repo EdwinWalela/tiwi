@@ -5,6 +5,7 @@
 *.exe
 *.html
 test-site
+my-site
 /out
 /.idea
 /.vscode

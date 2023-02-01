@@ -8,6 +8,10 @@
 
 ## Installation
 
+```
+go get -u -v github.com/edwinwalela/tiwi
+```
+
 Clone repository
 
 ```bash
