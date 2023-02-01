@@ -62,25 +62,37 @@ func parseImgTag(src string, v string) string {
 	return fmt.Sprintf(mdTohtml[src[0:1]], imgAlt, imgSrc)
 }
 
-func createOutputFolder() error {
-	if _, err := os.Stat("static"); os.IsNotExist(err) {
-		if err := os.Mkdir("static", os.ModePerm); err != nil {
+func createOutputFolder(projectDir string) error {
+	path := "./static"
+	if projectDir != "" {
+		path = fmt.Sprintf("%s/static", projectDir)
+	}
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		if err := os.Mkdir(path, os.ModePerm); err != nil {
 			return fmt.Errorf("failed to create output directory: %v", err.Error())
 		}
 	}
 	return nil
 }
 
-func writeHTML(src string, target string) {
+func writeHTML(src string, target string, projectDir string) {
+	staticPath := "static"
+	if projectDir != "" {
+		staticPath = fmt.Sprintf("%v/static", projectDir)
+	}
 	data := []byte(fmt.Sprintf(htmlHeader, "title") + fmt.Sprintf(htmlBody, src))
-	if err := os.WriteFile(fmt.Sprintf("static/%s.html", strings.ReplaceAll(target, ".md", "")), data, 0644); err != nil {
+	if err := os.WriteFile(fmt.Sprintf("%s/%s.html", staticPath, strings.ReplaceAll(target, ".md", "")), data, 0644); err != nil {
 		log.Fatal(err.Error())
 	}
 }
 
-func getPages() ([]string, error) {
+func getPages(projectDir string) ([]string, error) {
 	pages := []string{}
-	files, err := ioutil.ReadDir("./")
+	path := "./"
+	if projectDir != "" {
+		path = projectDir
+	}
+	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		return nil, err
 	}
@@ -92,11 +104,14 @@ func getPages() ([]string, error) {
 	return pages, nil
 }
 
-func Build() {
-
+func Build(args []string) {
+	var projectDir string
+	if len(args) != 0 {
+		projectDir = args[0]
+	}
 	blue := color.New(color.FgCyan).PrintfFunc()
 	green := color.New(color.FgGreen).PrintfFunc()
-	pages, err := getPages()
+	pages, err := getPages(projectDir)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
@@ -108,7 +123,7 @@ func Build() {
 	green(" [%d] ", len(pages))
 	fmt.Printf("page(s):\n\n")
 
-	if err := createOutputFolder(); err != nil {
+	if err := createOutputFolder(projectDir); err != nil {
 		log.Fatal(err)
 	}
 
@@ -119,7 +134,11 @@ func Build() {
 	fmt.Printf("\n%v Generating HTML...\n", emoji.HourglassNotDone)
 
 	for _, page := range pages {
-		dat, err := os.ReadFile(page)
+		pagePath := page
+		if projectDir != "" {
+			pagePath = fmt.Sprintf("%s/%s", projectDir, page)
+		}
+		dat, err := os.ReadFile(pagePath)
 
 		if err != nil {
 			log.Fatal(err.Error())
@@ -148,10 +167,14 @@ func Build() {
 				}
 			}
 		}
-		writeHTML(html, page)
+		writeHTML(html, page, projectDir)
 	}
 
 	blue("\n%v Process complete.", emoji.ThumbsUp)
 	fmt.Printf(" HTML files generated at ")
-	green("./static\n\n")
+	outputPath := "./static"
+	if projectDir != "" {
+		outputPath = fmt.Sprintf("%s/static", projectDir)
+	}
+	green("%s\n\n", outputPath)
 }

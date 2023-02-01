@@ -10,7 +10,7 @@ var parseCmd = &cobra.Command{
 	Short: "Generates HTML files",
 	Long:  "Parses markdown and produces HTML code",
 	Run: func(cmd *cobra.Command, args []string) {
-		parse.Build()
+		parse.Build(args)
 	},
 }
 
