@@ -4,6 +4,9 @@
 <img src="./docs/create.png" width=600/>
 </div>
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/edwinwalela/tiwi)](https://goreportcard.com/report/github.com/edwinwalela/tiwi)
 
 ## Installation
 
