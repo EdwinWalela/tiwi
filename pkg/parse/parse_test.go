@@ -22,7 +22,38 @@ func TestCreateOutputFolder(t *testing.T) {
 }
 
 func TestReadMarkDown(t *testing.T) {
+	md, err := readMarkdown("index.md", "../../test-site")
+	assert.NoError(t, err)
+	expectedMd := `
+# Tiwi
+![tiwi-logo](https://raw.githubusercontent.com/EdwinWalela/tiwi/main/docs/tiwi-mini.png)
 
+---
+
+Generate HTML from markdown
+
+## Getting Started
+
+### Supported markdown syntax
+
+- #- h1
+- ##- h2 
+- ###- h3
+- ![alt](src)- img
+- --- - div
+- []() - link
+
+---
+
+### Generate HTML
+
+./tiwi build
+
+---
+
+[View on Github](https://github.com/EdwinWalela/tiwi)
+	`
+	assert.Equal(t, expectedMd, md)
 }
 
 func TestParseMd(t *testing.T) {
