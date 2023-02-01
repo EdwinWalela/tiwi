@@ -21,7 +21,7 @@ var mdTohtml = map[string]string{
 	"###": "<h3>",
 	"[":   "<a href=\"%s\">%s</a>",
 	"!":   "<img alt=\"%s\" src=\"%s\"/>",
-	"---": "<div style=\"border-top:solid 1px gray\"</div>",
+	"---": "<div style=\"border-top:solid 1px gray\"></div>",
 }
 
 // htmlOpenToClose defines mappings between HTML opening and closing tags
