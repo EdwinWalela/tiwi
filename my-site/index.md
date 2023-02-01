@@ -1,11 +1,10 @@
 
-![tiwi](https://raw.githubusercontent.com/EdwinWalela/tiwi/main/docs/tiwi-mini.png)
-
 # Tiwi
-
-Generate HTML from markdown
+![tiwi-logo](https://raw.githubusercontent.com/EdwinWalela/tiwi/main/docs/tiwi-mini.png)
 
 ---
+
+Generate HTML from markdown
 
 ## Getting Started
 
@@ -25,7 +24,6 @@ Generate HTML from markdown
 ./tiwi build
 
 ---
-
 
 [View on Github](https://github.com/EdwinWalela/tiwi)
 	

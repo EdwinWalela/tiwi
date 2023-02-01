@@ -13,6 +13,9 @@ import (
 var DefaultPages = map[string]string{
 	"index": `
 # Tiwi
+![tiwi-logo](https://raw.githubusercontent.com/EdwinWalela/tiwi/main/docs/tiwi-mini.png)
+
+---
 
 Generate HTML from markdown
 
@@ -27,11 +30,13 @@ Generate HTML from markdown
 - --- - div
 - []() - link
 
+---
 
 ### Generate HTML
 
 ./tiwi build
 
+---
 
 [View on Github](https://github.com/EdwinWalela/tiwi)
 	`,
