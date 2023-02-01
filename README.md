@@ -68,24 +68,18 @@ tiwi create my-tiwi-site
 ./tiwi create my-site
 ```
 
-To be able to use the `tiwi` command inside the project, copy the binary into the project
-
-```bash
-cp tiwi my-site
-```
-
 The `create` command scaffolds the project with an `index.md` and `not-found.md`
 
 ### Generate HTML
 
 ```bash
-./tiwi build
+./tiwi build <project-name>
 ```
 
 This commands generates a folder called `static` containing the HTML files
 
 ```bash
-$ ./tiwi build
+$ ./tiwi build my-site
 
 Found [2] page(s):
 
@@ -94,7 +88,7 @@ Found [2] page(s):
 
 Generating HTML...
 
-Process complete. HTML files generated at /static.
+Process complete. HTML files generated at mysite/static.
 ```
 <div align="center">
 <img src="./docs/index-html.png" width=400/>
