@@ -50,6 +50,12 @@ var htmlBody string = `
  </html>
 `
 
+// blue defines colored formatted output
+var blue = color.New(color.FgCyan).PrintfFunc()
+
+// green defines colored formatted output
+var green = color.New(color.FgGreen).PrintfFunc()
+
 // parseAnchorTag generates HTML anchor tags from markdown
 func parseAnchorTag(src string) string {
 	title, link, _ := strings.Cut(src, "]")
@@ -100,7 +106,7 @@ func writeHTML(src string, target string, projectDir string) {
 	}
 }
 
-// getPages locates all markdown files in the current or specified directory
+// getPages locates and returns a list of markdown file names in the current or specified directory
 func getPages(projectDir string) ([]string, error) {
 	pages := []string{}
 	path := "./"
@@ -119,18 +125,67 @@ func getPages(projectDir string) ([]string, error) {
 	return pages, nil
 }
 
+// readMarkdown reads markdown from file and returns it as a string
+func readMarkdown(page string, projectDir string) (string, error) {
+	pagePath := page
+	if projectDir != "" {
+		pagePath = fmt.Sprintf("%s/%s", projectDir, page)
+	}
+	dat, err := os.ReadFile(pagePath)
+
+	if err != nil {
+		return "", fmt.Errorf("failed to read file %s: %s", page, err.Error())
+	}
+	return string(dat), nil
+}
+
+// parseMd generates HTML from a markdown string
+func parseMd(md string) string {
+	html := ""
+	el, val, _ := strings.Cut(md, " ")
+
+	if _, exists := mdTohtml[el]; !exists {
+		if len(el) > 0 {
+			if el[0:1] == "[" {
+				html = parseAnchorTag(md)
+			} else if el[0:1] == "!" {
+				html = parseImgTag(md)
+			} else {
+				html = "<p>" + md + "</p>"
+			}
+		}
+	} else {
+		html = mdTohtml[el] + val + htmlOpenToClose[mdTohtml[el]]
+	}
+	return html
+}
+
+// buildHTML generates html files from markdown
+func buildHTML(src string, page string, projectDir string) error {
+	html := ""
+	for _, v := range strings.Split(src, "\n") {
+		if v == "" {
+			continue
+		}
+		html += "\t\t" + parseMd(v) + "\n"
+	}
+	writeHTML(html, page, projectDir)
+	return nil
+}
+
 // Build reads markdown files and generates HTML files
 func Build(args []string) {
 	var projectDir string
 	if len(args) != 0 {
 		projectDir = args[0]
 	}
-	blue := color.New(color.FgCyan).PrintfFunc()
-	green := color.New(color.FgGreen).PrintfFunc()
+
 	pages, err := getPages(projectDir)
+
 	if err != nil {
 		log.Fatal(err.Error())
 	}
+
 	if len(pages) == 0 {
 		log.Fatalf("No Markdown files were found in the directory\n")
 	}
@@ -138,52 +193,24 @@ func Build(args []string) {
 	fmt.Printf("\n%v Found", emoji.PageFacingUp)
 	green(" [%d] ", len(pages))
 	fmt.Printf("page(s):\n\n")
+	for _, page := range pages {
+		green("- %s\n", page)
+	}
 
 	if err := createOutputFolder(projectDir); err != nil {
 		log.Fatal(err)
 	}
 
-	for _, page := range pages {
-		green("- %s\n", page)
-	}
-
 	fmt.Printf("\n%v Generating HTML...\n", emoji.HourglassNotDone)
 
 	for _, page := range pages {
-		pagePath := page
-		if projectDir != "" {
-			pagePath = fmt.Sprintf("%s/%s", projectDir, page)
-		}
-		dat, err := os.ReadFile(pagePath)
-
+		md, err := readMarkdown(page, projectDir)
 		if err != nil {
+			log.Fatalf("failed to read markdown file %s: %s", page, err.Error())
+		}
+		if err := buildHTML(md, page, projectDir); err != nil {
 			log.Fatal(err.Error())
 		}
-		src := string(dat)
-		html := ""
-
-		for _, v := range strings.Split(src, "\n") {
-			if v != "" {
-				el, val, _ := strings.Cut(v, " ")
-				_ = val
-
-				if _, exists := mdTohtml[el]; !exists {
-
-					if len(el) > 0 {
-						if el[0:1] == "[" {
-							html += "\t\t" + parseAnchorTag(v) + "\n"
-						} else if el[0:1] == "!" {
-							html += "\t\t" + parseImgTag(v) + "\n"
-						} else {
-							html += "\t\t<p>" + v + "</p>" + "\n"
-						}
-					}
-				} else {
-					html += "\t\t" + mdTohtml[el] + val + htmlOpenToClose[mdTohtml[el]] + "\n"
-				}
-			}
-		}
-		writeHTML(html, page, projectDir)
 	}
 
 	blue("\n%v Process complete.", emoji.ThumbsUp)
