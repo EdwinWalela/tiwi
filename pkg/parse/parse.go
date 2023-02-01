@@ -1,3 +1,5 @@
+// Package parse reads markdown file and generates HTML from the markdown
+
 package parse
 
 import (
