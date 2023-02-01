@@ -8,6 +8,7 @@ import (
 
 	"strings"
 
+	"github.com/enescakir/emoji"
 	"github.com/fatih/color"
 )
 
@@ -103,7 +104,7 @@ func Build() {
 		log.Fatalf("No Markdown files were found in the directory\n")
 	}
 
-	fmt.Printf("\nFound")
+	fmt.Printf("\n%v Found", emoji.PageFacingUp)
 	green(" [%d] ", len(pages))
 	fmt.Printf("page(s):\n\n")
 
@@ -115,7 +116,7 @@ func Build() {
 		green("- %s\n", page)
 	}
 
-	fmt.Println("\nGenerating HTML...")
+	fmt.Printf("\n%v Generating HTML...\n", emoji.HourglassNotDone)
 
 	for _, page := range pages {
 		dat, err := os.ReadFile(page)
@@ -150,7 +151,7 @@ func Build() {
 		writeHTML(html, page)
 	}
 
-	blue("\nProcess complete.")
+	blue("\n%v Process complete.", emoji.ThumbsUp)
 	fmt.Printf(" HTML files generated at ")
 	green("./static\n\n")
 }
