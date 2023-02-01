@@ -56,7 +56,12 @@ Generate HTML from markdown
 	assert.Equal(t, expectedMd, md)
 }
 
-func TestParseMd(t *testing.T) {
+func TestGenerateAnchorTag(t *testing.T) {
+	expectedHtml := "<a href=\"link\">title</a>"
+	targetMd := "[title](link)"
+	html := parseMd(targetMd)
+
+	assert.Equal(t, expectedHtml, html)
 
 }
 
