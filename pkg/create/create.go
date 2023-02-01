@@ -13,6 +13,7 @@ import (
 	"github.com/fatih/color"
 )
 
+// defaultPages defines a mapping of default markdown files to their content
 var defaultPages = map[string]string{
 	"index": `
 # Tiwi
@@ -50,6 +51,7 @@ The page requested was not found.
 	`,
 }
 
+// createParentFolder creates a folder for the project
 func createParentFolder(title string) error {
 	if _, err := os.Stat(title); os.IsNotExist(err) {
 		if err := os.Mkdir(title, os.ModePerm); err != nil {
@@ -59,6 +61,7 @@ func createParentFolder(title string) error {
 	return nil
 }
 
+// createPages creates the default markdown files for a new project
 func createPages(parentDir string) error {
 	for title := range defaultPages {
 		if err := createPage(title, parentDir); err != nil {
@@ -68,6 +71,7 @@ func createPages(parentDir string) error {
 	return nil
 }
 
+// createPage writes markdown to file for a new project
 func createPage(page string, parentDir string) error {
 	about := []byte(fmt.Sprintf("%s", defaultPages[page]))
 
@@ -77,6 +81,7 @@ func createPage(page string, parentDir string) error {
 	return nil
 }
 
+// CreateSite generates a new tiwi project with its respective default markdown files
 func CreateSite(args []string) {
 	projectTitle := ""
 	blue := color.New(color.FgCyan).PrintfFunc()
