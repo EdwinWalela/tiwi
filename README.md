@@ -4,11 +4,7 @@
 <img src="./docs/create.png" width=600/>
 </div>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-
-[![Go Report Card](https://goreportcard.com/badge/github.com/edwinwalela/tiwi)](https://goreportcard.com/report/github.com/edwinwalela/tiwi)
-
-`Version: 0.0.1`
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Go Report Card](https://goreportcard.com/badge/github.com/edwinwalela/tiwi)](https://goreportcard.com/report/github.com/edwinwalela/tiwi) [![Go Reference](https://pkg.go.dev/badge/badge/github.com/ostafen/clover.svg)](https://pkg.go.dev/github.com/ostafen/clover)
 
 ## Installation
 
