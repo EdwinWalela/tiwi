@@ -1,7 +1,7 @@
 <div align="center">
 <img src="docs/tiwi.png"/>
 
-<img src="./docs/create.png" width=300/>
+<img src="./docs/create.png" width/>
 </div>
 
 
