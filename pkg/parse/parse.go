@@ -157,15 +157,15 @@ func Build(args []string) {
 
 					if len(el) > 0 {
 						if el[0:1] == "[" {
-							html += parseAnchorTag(v) + "\n"
+							html += "\t\t" + parseAnchorTag(v) + "\n"
 						} else if el[0:1] == "!" {
-							html += parseImgTag(v) + "\n"
+							html += "\t\t" + parseImgTag(v) + "\n"
 						} else {
-							html += "<p>" + v + "</p>" + "\n"
+							html += "\t\t<p>" + v + "</p>" + "\n"
 						}
 					}
 				} else {
-					html += mdTohtml[el] + val + htmlOpenToClose[mdTohtml[el]] + "\n"
+					html += "\t\t" + mdTohtml[el] + val + htmlOpenToClose[mdTohtml[el]] + "\n"
 				}
 			}
 		}
