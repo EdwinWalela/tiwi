@@ -14,6 +14,7 @@ import (
 	"github.com/fatih/color"
 )
 
+// mdTohtml defines mappings between markdown and HTML opening tags
 var mdTohtml = map[string]string{
 	"#":   "<h1>",
 	"##":  "<h2>",
@@ -23,24 +24,28 @@ var mdTohtml = map[string]string{
 	"---": "<div style=\"border-top:solid 1px gray\"</div>",
 }
 
+// htmlOpenToClose defines mappings between HTML opening and closing tags
 var htmlOpenToClose = map[string]string{
 	"<h1>": "</h1>",
 	"<h2>": "</h2>",
 	"<h3>": "</h3>",
 }
 
+// htmlHeader defines the default HTML header to be used for the generated HTML files
 var htmlHeader string = `
 	<head>
 		<title>%s</title>
 	</head>
 `
 
+// htmlBody defines the default HTML body element to be used for the generated HTML files
 var htmlBody string = `
  <body>
  %s
  </body>
 `
 
+// parseAnchorTag generates HTML anchor tags from markdown
 func parseAnchorTag(src string) string {
 	title, link, _ := strings.Cut(src, "]")
 	link = strings.ReplaceAll(link, "(", "")
@@ -50,6 +55,7 @@ func parseAnchorTag(src string) string {
 	return fmt.Sprintf(mdTohtml[src[0:1]], link, title)
 }
 
+// parseImgTag generates HTML img elements from markdown
 func parseImgTag(src string) string {
 	// v -> entire line of markdown
 	// src -> markdown syntax e.g # ## ###
@@ -63,6 +69,7 @@ func parseImgTag(src string) string {
 	return fmt.Sprintf(mdTohtml[src[0:1]], imgAlt, imgSrc)
 }
 
+// createOutputFolder generates a folder called static where generated HTML files are saved
 func createOutputFolder(projectDir string) error {
 	path := "./static"
 	if projectDir != "" {
@@ -76,6 +83,7 @@ func createOutputFolder(projectDir string) error {
 	return nil
 }
 
+// writeHTML writes the generated HTML to file
 func writeHTML(src string, target string, projectDir string) {
 	staticPath := "static"
 	if projectDir != "" {
@@ -87,6 +95,7 @@ func writeHTML(src string, target string, projectDir string) {
 	}
 }
 
+// getPages locates all markdown files in the current or specified directory
 func getPages(projectDir string) ([]string, error) {
 	pages := []string{}
 	path := "./"
@@ -105,6 +114,7 @@ func getPages(projectDir string) ([]string, error) {
 	return pages, nil
 }
 
+// Build reads markdown files and generates HTML files
 func Build(args []string) {
 	var projectDir string
 	if len(args) != 0 {
