@@ -62,7 +62,14 @@ func TestGenerateAnchorTag(t *testing.T) {
 	html := parseMd(targetMd)
 
 	assert.Equal(t, expectedHtml, html)
+}
 
+func TestGenerateImgTag(t *testing.T) {
+	expectedHtml := "<img alt=\"alt\" src=\"link\"/>"
+	targetMd := "![alt](link)"
+	html := parseMd(targetMd)
+
+	assert.Equal(t, expectedHtml, html)
 }
 
 func TestWriteHTML(t *testing.T) {
