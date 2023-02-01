@@ -1,3 +1,6 @@
+// Package create generates the tiwi project by creating the project folder
+// and default markdown files
+
 package create
 
 import (
@@ -10,7 +13,7 @@ import (
 	"github.com/fatih/color"
 )
 
-var DefaultPages = map[string]string{
+var defaultPages = map[string]string{
 	"index": `
 # Tiwi
 ![tiwi-logo](https://raw.githubusercontent.com/EdwinWalela/tiwi/main/docs/tiwi-mini.png)
@@ -57,7 +60,7 @@ func createParentFolder(title string) error {
 }
 
 func createPages(parentDir string) error {
-	for title := range DefaultPages {
+	for title := range defaultPages {
 		if err := createPage(title, parentDir); err != nil {
 			return fmt.Errorf("failed to create page %s: %v", title, err.Error())
 		}
@@ -66,7 +69,7 @@ func createPages(parentDir string) error {
 }
 
 func createPage(page string, parentDir string) error {
-	about := []byte(fmt.Sprintf("%s", DefaultPages[page]))
+	about := []byte(fmt.Sprintf("%s", defaultPages[page]))
 
 	if err := os.WriteFile(fmt.Sprintf("%s/%s.md", parentDir, page), about, 0644); err != nil {
 		return err
