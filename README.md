@@ -8,6 +8,8 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/edwinwalela/tiwi)](https://goreportcard.com/report/github.com/edwinwalela/tiwi)
 
+`Version: 0.0.1`
+
 ## Installation
 
 Clone repository
