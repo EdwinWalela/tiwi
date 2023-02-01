@@ -93,3 +93,8 @@ Process complete. HTML files generated at mysite/static.
 <div align="center">
 <img src="./docs/index-html.png" width=400/>
 </div>
+
+
+## Contributing
+
+Any contribution, in the form of a suggestion, bug report or pull request, is well accepted.
