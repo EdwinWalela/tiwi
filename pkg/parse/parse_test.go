@@ -72,6 +72,27 @@ func TestGenerateImgTag(t *testing.T) {
 	assert.Equal(t, expectedHtml, html)
 }
 
+func TestGenerateHTMLElement(t *testing.T) {
+	expectedHtml := []string{
+		"<h1>heading 1</h1>",
+		"<h2>heading 2</h2>",
+		"<h3>heading 3</h3>",
+		"<div style=\"border-top:solid 1px gray\"></div>",
+	}
+
+	markdown := []string{
+		"# heading 1",
+		"## heading 2",
+		"### heading 3",
+		"---",
+	}
+
+	for i, md := range markdown {
+		html := parseMd(md)
+		assert.Equal(t, expectedHtml[i], html)
+	}
+}
+
 func TestWriteHTML(t *testing.T) {
 
 }
