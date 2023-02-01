@@ -33,6 +33,10 @@ var htmlOpenToClose = map[string]string{
 
 // htmlHeader defines the default HTML header to be used for the generated HTML files
 var htmlHeader string = `
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
 	<head>
 		<title>%s</title>
 	</head>
@@ -40,9 +44,10 @@ var htmlHeader string = `
 
 // htmlBody defines the default HTML body element to be used for the generated HTML files
 var htmlBody string = `
- <body>
- %s
- </body>
+	<body>
+	%s
+	</body>
+ </html>
 `
 
 // parseAnchorTag generates HTML anchor tags from markdown
