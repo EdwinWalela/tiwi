@@ -73,7 +73,7 @@ func createPages(parentDir string) error {
 
 // createPage writes markdown to file for a new project
 func createPage(page string, parentDir string) error {
-	about := []byte(fmt.Sprintf("%s", defaultPages[page]))
+	about := []byte(defaultPages[page])
 
 	if err := os.WriteFile(fmt.Sprintf("%s/%s.md", parentDir, page), about, 0644); err != nil {
 		return err
