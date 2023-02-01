@@ -6,6 +6,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/enescakir/emoji"
 	"github.com/fatih/color"
 )
 
@@ -92,7 +93,7 @@ func CreateSite(args []string) {
 		log.Fatalf("Failed to get current directory: %v", err.Error())
 	}
 
-	fmt.Printf("\nScaffolding project in :")
+	fmt.Printf("\n%v Scaffolding project in :", emoji.Star)
 	green("%s/%s...\n", currentDir, projectTitle)
 	if err := createParentFolder(projectTitle); err != nil {
 		log.Fatal(err.Error())
@@ -100,7 +101,7 @@ func CreateSite(args []string) {
 	if err := createPages(projectTitle); err != nil {
 		log.Fatal(err.Error())
 	}
-	fmt.Printf("\nProject created")
+	fmt.Printf("\n%v Project created", emoji.ThumbsUp)
 	if projectTitle != "." {
 
 		fmt.Printf("\n\ncd ")
@@ -111,6 +112,6 @@ func CreateSite(args []string) {
 	fmt.Printf("\nTo build project run: ")
 	blue("tiwi build\n\n")
 
-	fmt.Printf("\nStart building!\n\n")
+	fmt.Printf("\n%v Start building!\n\n", emoji.PersonSurfing)
 
 }
