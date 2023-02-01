@@ -20,5 +20,5 @@ Generate HTML from markdown
 ./tiwi build
 
 
-[View on Github](https://github.com/EdwinWalela/tiwi)
+![View img Github](https://github.com/EdwinWalela/tiwi)
 	

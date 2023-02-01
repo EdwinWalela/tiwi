@@ -41,7 +41,9 @@ var htmlBody string = `
 
 func parseAnchorTag(src string) string {
 	title, link, _ := strings.Cut(src, "]")
-
+	fmt.Println("src=" + src)
+	fmt.Println("title=" + title)
+	fmt.Println("link=" + link)
 	link = strings.ReplaceAll(link, "(", "")
 	link = strings.ReplaceAll(link, ")", "")
 	title = strings.ReplaceAll(title, "[", "")
@@ -49,10 +51,10 @@ func parseAnchorTag(src string) string {
 	return fmt.Sprintf(mdTohtml[src[0:1]], link, title)
 }
 
-func parseImgTag(src string, v string) string {
+func parseImgTag(src string) string {
 	// v -> entire line of markdown
 	// src -> markdown syntax e.g # ## ###
-	imgAlt, imgSrc, _ := strings.Cut(v, "]")
+	imgAlt, imgSrc, _ := strings.Cut(src, "]")
 
 	imgSrc = strings.ReplaceAll(imgSrc, "(", "")
 	imgSrc = strings.ReplaceAll(imgSrc, ")", "")
@@ -155,9 +157,9 @@ func Build(args []string) {
 
 					if len(el) > 0 {
 						if el[0:1] == "[" {
-							html += parseAnchorTag(el) + "\n"
+							html += parseAnchorTag(v) + "\n"
 						} else if el[0:1] == "!" {
-							html += parseImgTag(el, v) + "\n"
+							html += parseImgTag(v) + "\n"
 						} else {
 							html += "<p>" + v + "</p>" + "\n"
 						}
