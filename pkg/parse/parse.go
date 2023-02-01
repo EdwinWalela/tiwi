@@ -41,9 +41,6 @@ var htmlBody string = `
 
 func parseAnchorTag(src string) string {
 	title, link, _ := strings.Cut(src, "]")
-	fmt.Println("src=" + src)
-	fmt.Println("title=" + title)
-	fmt.Println("link=" + link)
 	link = strings.ReplaceAll(link, "(", "")
 	link = strings.ReplaceAll(link, ")", "")
 	title = strings.ReplaceAll(title, "[", "")
