@@ -69,7 +69,11 @@ tiwi create my-tiwi-site
 ./tiwi create my-site
 ```
 
-The `create` command scaffolds the project with an `index.md` and `not-found.md`
+The `create` command scaffolds the project with the following default markdown files:
+- index.md  
+- not-found.md
+- first-article.md
+- getting started.md
 
 ### Generate HTML
 
@@ -95,10 +99,14 @@ Generating HTML...
 
 Process complete. HTML files generated at mysite/static.
 ```
+
+### Generated static website
+
 <div align="center">
 <img src="./docs/index-html.png" width=400/>
 </div>
 
+---
 
 ## Contributing
 
