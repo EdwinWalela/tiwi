@@ -40,6 +40,11 @@ var htmlHeader string = `
 	<head>
 		<title>%s</title>
 	</head>
+	<style>
+		a{
+			display:block;
+		}
+	</style>
 `
 
 // htmlBody defines the default HTML body element to be used for the generated HTML files

@@ -23,9 +23,23 @@ var defaultPages = map[string]string{
 
 Generate HTML from markdown
 
-## Getting Started
+[Getting Started](./getting-started.md)
 
-### Supported markdown syntax
+[Sample Article](./first-article.md)
+
+[View on Github](https://github.com/EdwinWalela/tiwi)
+		`,
+	"first-article": `
+[Home Page](./index.md)
+# This is my first article
+
+This is a sample article
+	`,
+	"getting-started": `
+[Home Page](./index.md)
+# Getting Started
+---
+## Supported markdown syntax
 
 - #- h1
 - ##- h2 
@@ -34,15 +48,9 @@ Generate HTML from markdown
 - --- - div
 - []() - link
 
----
+## Generate markdown
 
-### Generate HTML
-
-./tiwi build
-
----
-
-[View on Github](https://github.com/EdwinWalela/tiwi)
+Run ./tiwi build my-site
 	`,
 	"not-found": `
 # Page not found
