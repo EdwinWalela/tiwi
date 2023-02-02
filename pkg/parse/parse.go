@@ -62,6 +62,7 @@ func parseAnchorTag(src string) string {
 	link = strings.ReplaceAll(link, "(", "")
 	link = strings.ReplaceAll(link, ")", "")
 	title = strings.ReplaceAll(title, "[", "")
+	link = strings.ReplaceAll(link, ".md", ".html")
 
 	return fmt.Sprintf(mdTohtml[src[0:1]], link, title)
 }
