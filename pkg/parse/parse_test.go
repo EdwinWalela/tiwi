@@ -2,6 +2,7 @@ package parse
 
 import (
 	"fmt"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -80,7 +81,38 @@ func TestGenerateHTMLElement(t *testing.T) {
 }
 
 func TestWriteHTML(t *testing.T) {
+	generatedHtml := `
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+	<head>
+		<title>test-file</title>
+	</head>
+	<style>
+		a{
+			display:block;
+		}
+	</style>
 
+	<body>
+	<h1>Tiwi</h1>
+<p>Build Websites with Markdown</p>
+	</body>
+ </html>
+`
+	html := "<h1>Tiwi</h1>\n<p>Build Websites with Markdown</p>"
+	writeHTML(html, "test-file.md", "../../test-site")
+
+	htmlPath := "../../test-site/static/test-file.html"
+
+	assert.FileExists(t, htmlPath)
+
+	dat, err := os.ReadFile(htmlPath)
+
+	assert.NoError(t, err)
+
+	assert.Equal(t, generatedHtml, string(dat))
 }
 
 func TestBuildProject(t *testing.T) {
