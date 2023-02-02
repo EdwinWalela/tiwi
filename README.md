@@ -17,7 +17,7 @@ git clone https://github.com/EdwinWalela/tiwi
 Run tests and compile tiwi
 
 ```bash
-make
+cd tiwi && make
 ```
 
 Run tiwi
