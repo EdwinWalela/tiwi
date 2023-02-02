@@ -15,8 +15,7 @@ import (
 
 // defaultPages defines a mapping of default markdown files to their content
 var defaultPages = map[string]string{
-	"index": `
-# Tiwi
+	"index": `# Tiwi
 ![tiwi-logo](https://raw.githubusercontent.com/EdwinWalela/tiwi/main/docs/tiwi-mini.png)
 
 ---
@@ -27,35 +26,34 @@ Generate HTML from markdown
 
 [Sample Article](./first-article.md)
 
-[View on Github](https://github.com/EdwinWalela/tiwi)
-		`,
-	"first-article": `
-[Home Page](./index.md)
-# This is my first article
+---
 
+[View on Github](https://github.com/EdwinWalela/tiwi)
+			`,
+	"first-article": `[Home Page](./index.md)
+# This is my first article
 This is a sample article
 	`,
-	"getting-started": `
-[Home Page](./index.md)
+	"getting-started": `[Home Page](./index.md)
 # Getting Started
 ---
 ## Supported markdown syntax
-
 - #- h1
 - ##- h2 
 - ###- h3
 - ![alt](src)- img
-- --- - div
+- --- - horizontal separator 
 - []() - link
 
 ## Generate markdown
-
 Run ./tiwi build my-site
-	`,
+`,
 	"not-found": `
 # Page not found
 
 The page requested was not found.
+
+[Home Page](./index.md)
 	`,
 }
 

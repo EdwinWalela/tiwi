@@ -10,7 +10,7 @@ import (
 func TestGetPages(t *testing.T) {
 	pages, err := getPages("../../test-site")
 	assert.NoError(t, err)
-	assert.Equal(t, 2, len(pages))
+	assert.Equal(t, 4, len(pages))
 }
 
 func TestCreateOutputFolder(t *testing.T) {
@@ -24,35 +24,21 @@ func TestCreateOutputFolder(t *testing.T) {
 func TestReadMarkDown(t *testing.T) {
 	md, err := readMarkdown("index.md", "../../test-site")
 	assert.NoError(t, err)
-	expectedMd := `
-# Tiwi
+	expectedMd := `# Tiwi
 ![tiwi-logo](https://raw.githubusercontent.com/EdwinWalela/tiwi/main/docs/tiwi-mini.png)
 
 ---
 
 Generate HTML from markdown
 
-## Getting Started
+[Getting Started](./getting-started.md)
 
-### Supported markdown syntax
-
-- #- h1
-- ##- h2 
-- ###- h3
-- ![alt](src)- img
-- --- - div
-- []() - link
-
----
-
-### Generate HTML
-
-./tiwi build
+[Sample Article](./first-article.md)
 
 ---
 
 [View on Github](https://github.com/EdwinWalela/tiwi)
-	`
+			`
 	assert.Equal(t, expectedMd, md)
 }
 
@@ -99,6 +85,6 @@ func TestWriteHTML(t *testing.T) {
 
 func TestBuildProject(t *testing.T) {
 	args := []string{"../../test-site"}
-	Build(args)
+	Build(args, false)
 	assert.DirExists(t, fmt.Sprintf("%s/static", args[0]))
 }

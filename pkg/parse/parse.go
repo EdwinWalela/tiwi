@@ -22,6 +22,7 @@ var mdTohtml = map[string]string{
 	"[":   "<a href=\"%s\">%s</a>",
 	"!":   "<img alt=\"%s\" src=\"%s\"/>",
 	"---": "<div style=\"border-top:solid 1px gray\"></div>",
+	"":    "<br/>",
 }
 
 // htmlOpenToClose defines mappings between HTML opening and closing tags
@@ -149,7 +150,6 @@ func readMarkdown(page string, projectDir string) (string, error) {
 func parseMd(md string) string {
 	html := ""
 	el, val, _ := strings.Cut(md, " ")
-
 	if _, exists := mdTohtml[el]; !exists {
 		if len(el) > 0 {
 			if el[0:1] == "[" {
