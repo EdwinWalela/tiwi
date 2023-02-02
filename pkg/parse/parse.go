@@ -167,10 +167,10 @@ func parseMd(md string) string {
 }
 
 // buildHTML generates html files from markdown
-func buildHTML(src string, page string, projectDir string) error {
+func buildHTML(src string, page string, projectDir string, whitespace bool) error {
 	html := ""
 	for _, v := range strings.Split(src, "\n") {
-		if v == "" {
+		if v == "" && !whitespace {
 			continue
 		}
 		html += "\t\t" + parseMd(v) + "\n"
@@ -180,8 +180,9 @@ func buildHTML(src string, page string, projectDir string) error {
 }
 
 // Build reads markdown files and generates HTML files
-func Build(args []string) {
+func Build(args []string, whitespace bool) {
 	var projectDir string
+
 	if len(args) != 0 {
 		projectDir = args[0]
 	}
@@ -194,6 +195,12 @@ func Build(args []string) {
 
 	if len(pages) == 0 {
 		log.Fatalf("No Markdown files were found in the directory\n")
+	}
+
+	if whitespace {
+		fmt.Printf("\n%s Running in ", emoji.RedCircle)
+		blue("whitespace mode\n\n")
+		fmt.Printf("%s Empty lines will be replaced with empty <p> tags\n", emoji.LightBulb)
 	}
 
 	fmt.Printf("\n%v Found", emoji.PageFacingUp)
@@ -214,7 +221,7 @@ func Build(args []string) {
 		if err != nil {
 			log.Fatalf("failed to read markdown file %s: %s", page, err.Error())
 		}
-		if err := buildHTML(md, page, projectDir); err != nil {
+		if err := buildHTML(md, page, projectDir, whitespace); err != nil {
 			log.Fatal(err.Error())
 		}
 	}

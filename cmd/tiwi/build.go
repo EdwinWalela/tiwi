@@ -10,10 +10,12 @@ var parseCmd = &cobra.Command{
 	Short: "Generates HTML files",
 	Long:  "Parses markdown and produces HTML code",
 	Run: func(cmd *cobra.Command, args []string) {
-		parse.Build(args)
+		whitespace, _ := cmd.Flags().GetBool("whitespace")
+		parse.Build(args, whitespace)
 	},
 }
 
 func init() {
 	RootCmd.AddCommand(parseCmd)
+	RootCmd.PersistentFlags().BoolP("whitespace", "w", false, "Render whitespace as empty <p> tags")
 }
