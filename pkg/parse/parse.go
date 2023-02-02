@@ -100,13 +100,14 @@ func createOutputFolder(projectDir string) error {
 }
 
 // writeHTML writes the generated HTML to file
-func writeHTML(src string, target string, projectDir string) {
+func writeHTML(src string, page string, projectDir string) {
 	staticPath := "static"
 	if projectDir != "" {
 		staticPath = fmt.Sprintf("%v/static", projectDir)
 	}
-	data := []byte(fmt.Sprintf(htmlHeader, "title") + fmt.Sprintf(htmlBody, src))
-	if err := os.WriteFile(fmt.Sprintf("%s/%s.html", staticPath, strings.ReplaceAll(target, ".md", "")), data, 0644); err != nil {
+	pageTitle, _, _ := strings.Cut(page, ".")
+	data := []byte(fmt.Sprintf(htmlHeader, pageTitle) + fmt.Sprintf(htmlBody, src))
+	if err := os.WriteFile(fmt.Sprintf("%s/%s.html", staticPath, strings.ReplaceAll(page, ".md", "")), data, 0644); err != nil {
 		log.Fatal(err.Error())
 	}
 }
