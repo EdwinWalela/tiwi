@@ -1,4 +1,4 @@
-name: Tiwi
+name: Build
 on: 
   push:
     branches:
