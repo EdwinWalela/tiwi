@@ -75,8 +75,6 @@ func parseAnchorTag(src string) string {
 
 // parseImgTag generates HTML img elements from markdown
 func parseImgTag(src string) string {
-	// v -> entire line of markdown
-	// src -> markdown syntax e.g # ## ###
 	imgAlt, imgSrc, _ := strings.Cut(src, "]")
 
 	imgSrc = strings.ReplaceAll(imgSrc, "(", "")
