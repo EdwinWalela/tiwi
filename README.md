@@ -14,7 +14,7 @@ Clone repository
 git clone https://github.com/EdwinWalela/tiwi
 ```
 
-Compile tiwi
+Run tests and compile tiwi
 
 ```bash
 make
@@ -74,10 +74,12 @@ The `create` command scaffolds the project with an `index.md` and `not-found.md`
 ### Generate HTML
 
 ```bash
-./tiwi build <project-name>
+./tiwi build -w <project-name>
 ```
 
 This commands generates a folder called `static` containing the HTML files
+
+The `build` command takes in an optional flag `-w` which converts empty lines to `<br/>` tags
 
 ```bash
 $ ./tiwi build my-site
