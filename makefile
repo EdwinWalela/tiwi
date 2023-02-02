@@ -1,9 +1,9 @@
-all: clean e2e build
+all: clean test build
 
 clean:
 	rm -rf tiwi && rm -rf test-site
 
-e2e:
+test:
 	go test -v ./pkg/...
 
 build:
