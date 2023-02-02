@@ -84,8 +84,10 @@ The `build` command takes in an optional flag `-w` which converts empty lines to
 ```bash
 $ ./tiwi build my-site
 
-Found [2] page(s):
+Found [4] page(s):
 
+- first-article.md
+- getting-started.md
 - index.md
 - not-found.md
 
