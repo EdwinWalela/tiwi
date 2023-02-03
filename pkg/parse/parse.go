@@ -195,9 +195,13 @@ func generatePage(page string, projectDir string, whitespace bool) {
 }
 
 // Build reads markdown files and generates HTML files
-func Build(args []string, whitespace bool) {
+func Build(args []string, whitespace bool, liveReload bool) {
 	startTime := time.Now()
 	var projectDir string
+	currentDir, err := os.Getwd()
+	if err != nil {
+		log.Fatalf("Failed to get current directory: %v", err.Error())
+	}
 
 	if len(args) != 0 {
 		projectDir = args[0]
@@ -217,6 +221,13 @@ func Build(args []string, whitespace bool) {
 		fmt.Printf("\n%s Running in ", emoji.RedCircle)
 		blue("whitespace mode\n\n")
 		fmt.Printf("%s Empty lines will be replaced with empty <p> tags\n", emoji.LightBulb)
+	}
+
+	if liveReload {
+		fmt.Printf("\n%s Running in ", emoji.GreenCircle)
+		blue("live reload mode\n\n")
+		fmt.Printf("%s Watching for file changes in", emoji.LightBulb)
+		green(" %s/%s\n", currentDir, projectDir)
 	}
 
 	fmt.Printf("\n%v Found", emoji.PageFacingUp)
