@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"time"
 
 	"strings"
 
@@ -180,6 +181,7 @@ func buildHTML(src string, page string, projectDir string, whitespace bool) erro
 
 // Build reads markdown files and generates HTML files
 func Build(args []string, whitespace bool) {
+	startTime := time.Now()
 	var projectDir string
 
 	if len(args) != 0 {
@@ -224,8 +226,8 @@ func Build(args []string, whitespace bool) {
 			log.Fatal(err.Error())
 		}
 	}
-
-	blue("\n%v Process complete.", emoji.ThumbsUp)
+	timeDiff := time.Since(startTime)
+	blue("\n%v Process completed in %s.", emoji.ThumbsUp, timeDiff.Round(time.Millisecond))
 	fmt.Printf(" HTML files generated at ")
 	outputPath := "./static"
 	if projectDir != "" {
