@@ -8,6 +8,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/enescakir/emoji"
 	"github.com/fatih/color"
@@ -89,6 +90,7 @@ func createPage(page string, parentDir string) error {
 
 // CreateSite generates a new tiwi project with its respective default markdown files
 func CreateSite(args []string) {
+	startTime := time.Now()
 	projectTitle := ""
 	blue := color.New(color.FgCyan).PrintfFunc()
 	green := color.New(color.FgGreen).PrintfFunc()
@@ -120,7 +122,8 @@ func CreateSite(args []string) {
 	if err := createPages(projectTitle); err != nil {
 		log.Fatal(err.Error())
 	}
-	fmt.Printf("\n%v Project created", emoji.ThumbsUp)
+	timeDiff := time.Since(startTime)
+	fmt.Printf("\n%v Project created in %s", emoji.ThumbsUp, timeDiff.Round(time.Millisecond))
 	if projectTitle != "." {
 
 		fmt.Printf("\n\ncd ")
