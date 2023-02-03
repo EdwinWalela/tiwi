@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"sync"
 	"time"
 
 	"strings"
@@ -179,6 +180,16 @@ func buildHTML(src string, page string, projectDir string, whitespace bool) erro
 	return nil
 }
 
+func generatePage(page string, projectDir string, whitespace bool) {
+	md, err := readMarkdown(page, projectDir)
+	if err != nil {
+		log.Fatalf("failed to read markdown file %s: %s", page, err.Error())
+	}
+	if err := buildHTML(md, page, projectDir, whitespace); err != nil {
+		log.Fatal(err.Error())
+	}
+}
+
 // Build reads markdown files and generates HTML files
 func Build(args []string, whitespace bool) {
 	startTime := time.Now()
@@ -217,15 +228,15 @@ func Build(args []string, whitespace bool) {
 
 	fmt.Printf("\n%v Generating HTML...\n", emoji.HourglassNotDone)
 
-	for _, page := range pages {
-		md, err := readMarkdown(page, projectDir)
-		if err != nil {
-			log.Fatalf("failed to read markdown file %s: %s", page, err.Error())
-		}
-		if err := buildHTML(md, page, projectDir, whitespace); err != nil {
-			log.Fatal(err.Error())
-		}
+	var wg sync.WaitGroup
+	for i := range pages {
+		wg.Add(1)
+		go func(page *string) {
+			defer wg.Done()
+			generatePage(*page, projectDir, whitespace)
+		}(&pages[i])
 	}
+	wg.Wait()
 	timeDiff := time.Since(startTime)
 	blue("\n%v Process completed in %s.", emoji.ThumbsUp, timeDiff.Round(time.Millisecond))
 	fmt.Printf(" HTML files generated at ")
