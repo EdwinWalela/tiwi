@@ -110,4 +110,6 @@ Process complete. HTML files generated at mysite/static.
 
 ## Contributing
 
-Any contribution, in the form of a suggestion, bug report or pull request, is well accepted.
+Any contribution, in the form of a suggestion, bug report or pull request, is well accepted. 
+
+Here is a [list of good issues to get started](https://github.com/EdwinWalela/tiwi/contribute)
