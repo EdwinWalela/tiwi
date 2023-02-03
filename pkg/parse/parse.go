@@ -149,6 +149,7 @@ func readMarkdown(page string, projectDir string) (string, error) {
 
 // parseMd generates HTML from a markdown string
 func parseMd(md string) string {
+
 	html := ""
 	el, val, _ := strings.Cut(md, " ")
 	if _, exists := mdTohtml[el]; !exists {
@@ -158,6 +159,9 @@ func parseMd(md string) string {
 			} else if el[0:1] == "!" {
 				html = parseImgTag(md)
 			} else {
+				if strings.Contains(md, "<script") {
+					return ""
+				}
 				html = "<p>" + md + "</p>"
 			}
 		}
