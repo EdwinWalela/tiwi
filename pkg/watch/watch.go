@@ -8,8 +8,15 @@ import (
 	"strings"
 
 	"github.com/edwinwalela/tiwi/pkg/parse"
+	"github.com/fatih/color"
 	"github.com/fsnotify/fsnotify"
 )
+
+// blue defines colored formatted output
+var blue = color.New(color.FgCyan).PrintfFunc()
+
+// green defines colored formatted output
+var green = color.New(color.FgGreen).PrintfFunc()
 
 // getMdFileName extracts markdown file name from directory path
 func getMdFileName(path string) string {
@@ -20,6 +27,10 @@ func getMdFileName(path string) string {
 		}
 	}
 	return ""
+}
+
+func logEvent(event *fsnotify.Event) {
+	log.Printf("File changed: %v. Rebuilding HTML\n", getMdFileName(event.Name))
 }
 
 func Watch(args []string) {
@@ -38,7 +49,7 @@ func Watch(args []string) {
 		log.Fatalf("failed to watch directory: %s", err.Error())
 	}
 	defer watcher.Close()
-	parse.Build(args, false, true)
+	parse.Build(args, false, true, false)
 
 	done := make(chan bool)
 
@@ -46,8 +57,8 @@ func Watch(args []string) {
 		for {
 			select {
 			case event := <-watcher.Events:
-				log.Printf("Event occurred: %v\n", getMdFileName(event.Name))
-
+				logEvent(&event)
+				parse.Build(args, false, true, true)
 			case err := <-watcher.Errors:
 				log.Fatalf("failed to watch directory: %s", err.Error())
 			}

@@ -11,7 +11,7 @@ var parseCmd = &cobra.Command{
 	Long:  "Parses markdown and produces HTML code",
 	Run: func(cmd *cobra.Command, args []string) {
 		whitespace, _ := cmd.Flags().GetBool("whitespace")
-		parse.Build(args, whitespace, false)
+		parse.Build(args, whitespace, false, false)
 	},
 }
 

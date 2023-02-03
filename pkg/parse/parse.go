@@ -195,7 +195,7 @@ func generatePage(page string, projectDir string, whitespace bool) {
 }
 
 // Build reads markdown files and generates HTML files
-func Build(args []string, whitespace bool, liveReload bool) {
+func Build(args []string, whitespace bool, liveReload bool, isEvent bool) {
 	startTime := time.Now()
 	var projectDir string
 	currentDir, err := os.Getwd()
@@ -223,26 +223,28 @@ func Build(args []string, whitespace bool, liveReload bool) {
 		fmt.Printf("%s Empty lines will be replaced with empty <p> tags\n", emoji.LightBulb)
 	}
 
-	if liveReload {
+	if liveReload && !isEvent {
 		fmt.Printf("\n%s Running in ", emoji.GreenCircle)
 		blue("live reload mode\n\n")
 		fmt.Printf("%s Watching for file changes in", emoji.LightBulb)
 		green(" %s/%s\n", currentDir, projectDir)
 	}
 
-	fmt.Printf("\n%v Found", emoji.PageFacingUp)
-	green(" [%d] ", len(pages))
-	fmt.Printf("page(s):\n\n")
-	for _, page := range pages {
-		green("- %s\n", page)
+	if !isEvent {
+		fmt.Printf("\n%v Found", emoji.PageFacingUp)
+		green(" [%d] ", len(pages))
+		fmt.Printf("page(s):\n\n")
+		for _, page := range pages {
+			green("- %s\n", page)
+		}
 	}
-
 	if err := createOutputFolder(projectDir); err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("\n%v Generating HTML...\n", emoji.HourglassNotDone)
-
+	if !liveReload {
+		fmt.Printf("\n%v Generating HTML...\n", emoji.HourglassNotDone)
+	}
 	var wg sync.WaitGroup
 	for i := range pages {
 		wg.Add(1)
@@ -252,12 +254,14 @@ func Build(args []string, whitespace bool, liveReload bool) {
 		}(&pages[i])
 	}
 	wg.Wait()
-	timeDiff := time.Since(startTime)
-	blue("\n%v Process completed in %s.", emoji.ThumbsUp, timeDiff.Round(time.Millisecond))
-	fmt.Printf(" HTML files generated at ")
-	outputPath := "./static"
-	if projectDir != "" {
-		outputPath = fmt.Sprintf("%s/static", projectDir)
+	if !isEvent {
+		timeDiff := time.Since(startTime)
+		blue("\n%v Process completed in %s.", emoji.ThumbsUp, timeDiff.Round(time.Millisecond))
+		fmt.Printf(" HTML files generated at ")
+		outputPath := "./static"
+		if projectDir != "" {
+			outputPath = fmt.Sprintf("%s/static", projectDir)
+		}
+		green("%s\n\n", outputPath)
 	}
-	green("%s\n\n", outputPath)
 }

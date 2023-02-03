@@ -117,6 +117,6 @@ func TestWriteHTML(t *testing.T) {
 
 func TestBuildProject(t *testing.T) {
 	args := []string{"../../test-site"}
-	Build(args, false)
+	Build(args, false, false, false)
 	assert.DirExists(t, fmt.Sprintf("%s/static", args[0]))
 }
