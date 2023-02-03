@@ -8,15 +8,8 @@ import (
 	"strings"
 
 	"github.com/edwinwalela/tiwi/pkg/parse"
-	"github.com/fatih/color"
 	"github.com/fsnotify/fsnotify"
 )
-
-// blue defines colored formatted output
-var blue = color.New(color.FgCyan).PrintfFunc()
-
-// green defines colored formatted output
-var green = color.New(color.FgGreen).PrintfFunc()
 
 // getMdFileName extracts markdown file name from directory path
 func getMdFileName(path string) string {
@@ -29,10 +22,12 @@ func getMdFileName(path string) string {
 	return ""
 }
 
+// logEvent outputs details regarding file changed
 func logEvent(event *fsnotify.Event) {
 	log.Printf("File changed: %v. Rebuilding HTML\n", getMdFileName(event.Name))
 }
 
+// Watch monitors markdown files and rebuilds HTML when markdown changes
 func Watch(args []string) {
 	var projectDir string
 	wDir, err := os.Getwd()
