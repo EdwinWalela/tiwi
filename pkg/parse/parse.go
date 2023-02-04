@@ -207,7 +207,7 @@ func Build(args []string, whitespace bool, liveReload bool, isEvent bool) {
 		projectDir = args[0]
 	}
 
-	pages, err := getPages(projectDir)
+	pages, err := GetPages(projectDir)
 
 	if err != nil {
 		log.Fatal(err.Error())
