@@ -115,7 +115,7 @@ func writeHTML(src string, page string, projectDir string) {
 }
 
 // GetPages locates and returns a list of markdown file names in the current or specified directory
-func GetPages(projectDir string) ([]string, error) {
+func getPages(projectDir string) ([]string, error) {
 	pages := []string{}
 	path := "./"
 	if projectDir != "" {
@@ -207,7 +207,7 @@ func Build(args []string, whitespace bool, liveReload bool, isEvent bool) {
 		projectDir = args[0]
 	}
 
-	pages, err := GetPages(projectDir)
+	pages, err := getPages(projectDir)
 
 	if err != nil {
 		log.Fatal(err.Error())

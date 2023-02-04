@@ -9,7 +9,7 @@ import (
 )
 
 func TestGetPages(t *testing.T) {
-	pages, err := GetPages("../../test-site")
+	pages, err := getPages("../../test-site")
 	assert.NoError(t, err)
 	assert.Equal(t, 4, len(pages))
 }
