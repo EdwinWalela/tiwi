@@ -6,7 +6,7 @@
 
 <div align="center">
 <h2>Supports Live Reload</h2>
-<img src="docs/build.png"/>
+<img src="docs/live-reload.gif" width=500/>
 </div>
 
 ![build](https://github.com/edwinwalela/tiwi/actions/workflows/build.yaml/badge.svg) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Go Report Card](https://goreportcard.com/badge/github.com/edwinwalela/tiwi)](https://goreportcard.com/report/github.com/edwinwalela/tiwi)  [![Go Reference](https://pkg.go.dev/badge/badge/github.com/edwinwalela/tiwi)](https://pkg.go.dev/github.com/edwinwalela/tiwi) 
