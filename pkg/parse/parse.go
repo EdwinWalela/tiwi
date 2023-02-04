@@ -114,7 +114,7 @@ func writeHTML(src string, page string, projectDir string) {
 	}
 }
 
-// GetPages locates and returns a list of markdown file names in the current or specified directory
+// getPages locates and returns a list of markdown file names in the current or specified directory
 func getPages(projectDir string) ([]string, error) {
 	pages := []string{}
 	path := "./"
