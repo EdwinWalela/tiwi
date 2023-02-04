@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/edwinwalela/tiwi/pkg/parse"
 	"github.com/fsnotify/fsnotify"
@@ -49,13 +50,23 @@ func Watch(args []string) {
 	done := make(chan bool)
 
 	go func() {
+		var (
+			timer     *time.Timer
+			lastEvent fsnotify.Event
+		)
+		timer = time.NewTimer(time.Millisecond)
+		<-timer.C
 		for {
 			select {
 			case event := <-watcher.Events:
-				logEvent(&event)
-				parse.Build(args, false, true, true)
+				lastEvent = event
+				timer.Reset(time.Millisecond * 100)
 			case err := <-watcher.Errors:
 				log.Fatalf("failed to watch directory: %s", err.Error())
+
+			case <-timer.C:
+				logEvent(&lastEvent)
+				parse.Build(args, false, true, true)
 			}
 		}
 	}()
